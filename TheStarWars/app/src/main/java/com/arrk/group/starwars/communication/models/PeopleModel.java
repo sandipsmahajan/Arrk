@@ -23,6 +23,10 @@ public class PeopleModel implements Parcelable {
     @Expose
     private String created;
 
+    public PeopleModel() {
+
+    }
+
     private PeopleModel(Parcel in) {
         name = in.readString();
         height = in.readString();
