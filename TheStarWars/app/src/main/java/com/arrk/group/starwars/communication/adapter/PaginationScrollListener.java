@@ -1,23 +1,22 @@
 package com.arrk.group.starwars.communication.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
-import com.arrk.group.starwars.communication.constants.UIConstant;
 
 /**
  * @author SANDY
  */
 public abstract class PaginationScrollListener extends RecyclerView.OnScrollListener {
 
-    private LinearLayoutManager layoutManager;
+    private final LinearLayoutManager layoutManager;
 
     protected PaginationScrollListener(LinearLayoutManager layoutManager) {
         this.layoutManager = layoutManager;
     }
 
     @Override
-    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+    public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
 
         int visibleItemCount = layoutManager.getChildCount();
@@ -35,9 +34,9 @@ public abstract class PaginationScrollListener extends RecyclerView.OnScrollList
 
     protected abstract void loadMoreItems();
 
-    public abstract int getTotalPageCount();
+    protected abstract int getTotalPageCount();
 
-    public abstract boolean isLastPage();
+    protected abstract boolean isLastPage();
 
-    public abstract boolean isLoading();
+    protected abstract boolean isLoading();
 }

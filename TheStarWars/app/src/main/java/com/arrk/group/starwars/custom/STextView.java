@@ -5,8 +5,6 @@ import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
-import com.arrk.group.starwars.R;
-
 /**
  * @author SANDY
  */

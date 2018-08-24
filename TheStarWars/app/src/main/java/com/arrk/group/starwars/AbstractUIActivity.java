@@ -20,7 +20,7 @@ import retrofit2.Response;
  */
 public abstract class AbstractUIActivity extends AppCompatActivity {
 
-    public ICommunicator communicator;
+    protected ICommunicator communicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,24 +33,25 @@ public abstract class AbstractUIActivity extends AppCompatActivity {
     /**
      * Get layout resource file
      *
-     * @return
+     * @return int
      */
     protected abstract int getLayoutResource();
 
     /**
      * Handle messages received from the handler
      */
-    public abstract void handleMessage(Message message);
+    protected abstract void handleMessage(Message message);
 
-    public void showProgress() {
+    private void showProgress() {
         Util.showProgress(this);
     }
 
-    public void hideProgress() {
+    private void hideProgress() {
         Util.hideProgress();
     }
 
-    public void callService(Call call, boolean showProgress) {
+    @SuppressWarnings("unchecked")
+    protected void callService(Call call, boolean showProgress) {
         if (showProgress)
             showProgress();
 
@@ -66,13 +67,13 @@ public abstract class AbstractUIActivity extends AppCompatActivity {
                 if (call.isCanceled()) {
                     return;
                 }
-                SyncUpdateMessage syncUpdateMessage = new SyncUpdateMessage(SyncUpdateMessage.SYNC_CUSTOM_ERROR, new Exception(getResources().getString(R.string.network_error)));
+                SyncUpdateMessage syncUpdateMessage = new SyncUpdateMessage(SyncUpdateMessage.SYNC_ERROR, new Exception(getResources().getString(R.string.network_error)));
                 handleResponse(syncUpdateMessage);
             }
         });
     }
 
-    public void handleResponse(SyncUpdateMessage data) {
+    private void handleResponse(SyncUpdateMessage data) {
         hideProgress();
         Message message = new Message();
         message.obj = data;

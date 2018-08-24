@@ -50,8 +50,11 @@ public class Util {
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        if (connectivityManager != null) {
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        }
+        return false;
     }
 
     public static HashSet<String> getCookies(Context context) {
@@ -59,10 +62,10 @@ public class Util {
         return (HashSet<String>) app_cookies.getStringSet("cookies", new HashSet<String>());
     }
 
-    public static boolean setCookies(Context context, HashSet<String> cookies) {
+    public static void setCookies(Context context, HashSet<String> cookies) {
         SharedPreferences app_cookies = context.getSharedPreferences("app_cookies", 0);
         SharedPreferences.Editor editor = app_cookies.edit();
-        return editor.putStringSet("cookies", cookies).commit();
+        editor.putStringSet("cookies", cookies).apply();
     }
 
     public static double convertToMeter(String meter) {

@@ -1,6 +1,5 @@
 package com.arrk.group.starwars.communication.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,11 +22,9 @@ import butterknife.ButterKnife;
 public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder> {
 
     private List<PeopleModel> mValues;
-    private Context context;
     private final OnItemClickListener listener;
 
-    public PeopleAdapter(Context context, OnItemClickListener listener) {
-        this.context = context;
+    public PeopleAdapter(OnItemClickListener listener) {
         this.listener = listener;
     }
 

@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.arrk.group.starwars.communication.SyncUpdateMessage;
 import com.arrk.group.starwars.communication.adapter.OnItemClickListener;
@@ -43,7 +44,6 @@ public class CharacterActivity extends AbstractUIActivity implements OnItemClick
     @BindView(R.id.progressBar)
     ProgressBar mProgressBar;
 
-    private Call people_call;
     private PeopleAdapter adapter;
     private Intent intent;
 
@@ -53,8 +53,6 @@ public class CharacterActivity extends AbstractUIActivity implements OnItemClick
     private boolean isLoading = false;
     // If current page is the last page (Pagination will stop after this page load)
     private boolean isLastPage = false;
-    // Number of items in a single page
-    private int PAGE_ITEM_COUNT = UIConstant.PAGE_ITEMS_COUNT;
     // total no. of pages to load. Initial load is page 1, after which more pages will load.
     private int TOTAL_PAGES;
     // Total number of items
@@ -62,13 +60,14 @@ public class CharacterActivity extends AbstractUIActivity implements OnItemClick
     // indicates the current page which Pagination is fetching.
     private int currentPage = PAGE_START;
 
+    private int back_click_count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        adapter = new PeopleAdapter(this, this);
+        adapter = new PeopleAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(adapter);
@@ -85,22 +84,28 @@ public class CharacterActivity extends AbstractUIActivity implements OnItemClick
             }
 
             @Override
-            public int getTotalPageCount() {
+            protected int getTotalPageCount() {
                 return TOTAL_PAGES_COUNT;
             }
 
             @Override
-            public boolean isLastPage() {
+            protected boolean isLastPage() {
                 return isLastPage;
             }
 
             @Override
-            public boolean isLoading() {
+            protected boolean isLoading() {
                 return isLoading;
             }
         });
 
         getPeople(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        back_click_count = 0;
     }
 
     @Override
@@ -129,6 +134,7 @@ public class CharacterActivity extends AbstractUIActivity implements OnItemClick
     }
 
     private void calculateTotalPages(int count) {
+        int PAGE_ITEM_COUNT = UIConstant.PAGE_ITEMS_COUNT;
         int pages = count / PAGE_ITEM_COUNT;
         int mod = count % PAGE_ITEM_COUNT;
         if (mod > 0) {
@@ -159,7 +165,7 @@ public class CharacterActivity extends AbstractUIActivity implements OnItemClick
     private void getPeople(boolean showProgress) {
         if (!isLoading) {
             if (showProgress || (currentPage > PAGE_START && currentPage <= TOTAL_PAGES)) {
-                people_call = communicator.people(currentPage);
+                Call people_call = communicator.people(currentPage);
                 callService(people_call, showProgress);
 
                 if (!showProgress) {
@@ -175,5 +181,15 @@ public class CharacterActivity extends AbstractUIActivity implements OnItemClick
     public void onItemClick(PeopleModel item) {
         intent.putExtra(UIConstant.PEOPLE_INTENT, item);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (back_click_count == 0) {
+            back_click_count += 1;
+            Toast.makeText(this, getString(R.string.exit_message), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        super.onBackPressed();
     }
 }

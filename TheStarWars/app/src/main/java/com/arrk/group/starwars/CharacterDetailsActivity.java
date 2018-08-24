@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 
 import com.arrk.group.starwars.communication.constants.UIConstant;
 import com.arrk.group.starwars.communication.models.PeopleModel;
@@ -34,7 +33,9 @@ public class CharacterDetailsActivity extends AbstractUIActivity {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         initialise(getIntent());
     }
 
@@ -50,8 +51,12 @@ public class CharacterDetailsActivity extends AbstractUIActivity {
 
     private void initialise(Intent intent) {
         Bundle bundle = intent.getExtras();
-        PeopleModel model = bundle.getParcelable(UIConstant.PEOPLE_INTENT);
-        init(model);
+        if (bundle != null) {
+            PeopleModel model = bundle.getParcelable(UIConstant.PEOPLE_INTENT);
+            if (model != null) {
+                init(model);
+            }
+        }
     }
 
     private void init(PeopleModel model) {

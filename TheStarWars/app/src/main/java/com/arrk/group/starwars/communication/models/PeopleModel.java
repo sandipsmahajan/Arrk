@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 
-import java.io.Serializable;
-
 /**
  * @author SANDY
  * <p>

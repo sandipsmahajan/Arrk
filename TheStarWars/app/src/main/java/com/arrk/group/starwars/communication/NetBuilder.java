@@ -16,7 +16,7 @@ public class NetBuilder {
 
     private static final NetBuilder instance = new NetBuilder();
 
-    private ICommunicator communicator;
+    private final ICommunicator communicator;
 
     private NetBuilder() {
         OkHttpClient.Builder okHttpClient =

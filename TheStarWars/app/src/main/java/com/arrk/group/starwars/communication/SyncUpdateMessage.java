@@ -6,28 +6,22 @@ package com.arrk.group.starwars.communication;
 public final class SyncUpdateMessage {
 
     // message codes
-    public static final int NO_CONNECTION = 1;
-    public static final int SYNC_SUCCESSFUL = 2;
-    public static final int SYNC_STARTED = 3;
-    public static final int SYNC_CUSTOM_ERROR = 4;
-    public static final int SYNC_FILE_UPLOAD_ERROR = 5;
+    public static final int SYNC_SUCCESSFUL = 1;
+    public static final int SYNC_ERROR = 2;
 
-    private int messageCode;
-    private Object what;
+    private final int messageCode;
+    private final Object what;
 
-    public SyncUpdateMessage(int messageCode, Object what)
-    {
+    public SyncUpdateMessage(int messageCode, Object what) {
         this.messageCode = messageCode;
         this.what = what;
     }
 
-    public int getMessageCode()
-    {
+    public int getMessageCode() {
         return this.messageCode;
     }
 
-    public Object getWhat()
-    {
+    public Object getWhat() {
         return this.what;
     }
 }
