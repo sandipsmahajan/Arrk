@@ -1,5 +1,6 @@
 package com.arrk.group.starwars.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -20,10 +21,10 @@ import java.util.Locale;
  */
 public class Util {
 
+    @SuppressLint("StaticFieldLeak")
     private static KProgressHUD progress;
 
-
-    public static boolean isValid(String text) {
+    private static boolean isValid(String text) {
         return text != null && !"".equals(text.trim());
     }
 
@@ -79,11 +80,13 @@ public class Util {
     }
 
     public static String formatDate(String created) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(UIConstant.SERVER_DATE_FORMAT, Locale.US);
-        try {
-            Date date = dateFormat.parse(created);
-            return new SimpleDateFormat(UIConstant.UI_DATE_FORMAT, Locale.US).format(date);
-        } catch (ParseException ignored) {
+        if(isValid(created)) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(UIConstant.SERVER_DATE_FORMAT, Locale.US);
+            try {
+                Date date = dateFormat.parse(created);
+                return new SimpleDateFormat(UIConstant.UI_DATE_FORMAT, Locale.US).format(date);
+            } catch (ParseException ignored) {
+            }
         }
         return "";
     }
