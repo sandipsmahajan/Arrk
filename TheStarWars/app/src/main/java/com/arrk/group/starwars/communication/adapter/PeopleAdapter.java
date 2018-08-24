@@ -58,8 +58,6 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
         return mValues != null ? mValues.size() : 0;
     }
 
-    static
-
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.text_people_name)
