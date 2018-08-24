@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="text_error" type="id" />
+    <item name="btn_retry" type="id" />
+
+    <item name="recyclerView" type="id" />
+    <item name="errorLayout" type="id" />
+    <item name="progressBar" type="id" />
+
+    <item name="text_people_name" type="id" />
+
+    <item name="text_name" type="id" />
+    <item name="text_height" type="id" />
+    <item name="text_mass" type="id" />
+    <item name="text_created" type="id" />
+</resources>

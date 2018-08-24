@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">The Star Wars</string>
+    <string name="network_error">Unable to connect to the server. Please refer to your data network/GPRS/3G/4G connectivity and wait till data connectivity arrives.\n\nIt may occur due to poor network connectivity.</string>
+    <string name="retry">Try Again</string>
+    <string name="title_activity_character_details">CharacterDetailsActivity</string>
+
+    <string name="label_name">Name</string>
+    <string name="label_height">Height</string>
+    <string name="label_mass">Mass</string>
+    <string name="label_created">Created</string>
+
+    <string name="unit_meter">meter(s)</string>
+    <string name="unit_kg">kg</string>
+
+    <string name="label_loading">Loading...</string>
+</resources>

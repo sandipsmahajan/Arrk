@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SButton">
+        <attr name="button_font" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="STextView">
+        <attr name="text_font" format="string" />
+    </declare-styleable>
+</resources>
